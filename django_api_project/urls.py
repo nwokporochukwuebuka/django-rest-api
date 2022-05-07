@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 #from test_app.views import Simple, SimpleGenericUpdate, SimpleGenerics
 #from test_app.views import SimpleViewset
-from rest_framework.routers import DefaultRouter
+#from rest_framework.routers import DefaultRouter
 from django.conf import settings
-from django.conf.urls.static import static
+#from django.conf.urls.static import static
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
 
 # Setting router
 '''router = DefaultRouter()'''
@@ -35,7 +38,9 @@ urlpatterns = [
     path('gateway/', include('gateway.urls')),
     path("user-main/", include("user.urls")),
     #path("simple/", include(router.urls))
-    path("event-main/", include('event_controller.urls'))
+    path("event-main/", include('event_controller.urls')),
+    path('schema', get_schema_view(title="Event API", description="API for an event", version="1.0.0"), name="openapi-schema"),
+    path('docs/', include_docs_urls(title="Event API"))
 ]
 
 

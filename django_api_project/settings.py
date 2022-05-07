@@ -66,7 +66,8 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("gateway.authentication.Authentication",),
-    "EXCEPTION_HANDLER": "gateway.custom_handlers.custom_exception_handler"
+    "EXCEPTION_HANDLER": "gateway.custom_handlers.custom_exception_handler",
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"
 }
 
 ROOT_URLCONF = 'django_api_project.urls'
