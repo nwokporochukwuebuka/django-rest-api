@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,13 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'test_app',
     'rest_framework',
-    'debug_toolbar',
-    # used to change the criteria for becoming a user and using username for login rather than email
-    'user',
-    'django_seed',
     'gateway',
+    'django_seed',
+    'debug_toolbar',
+    'django_api_project',
+    # used to change the criteria for becoming a user and using username for login rather than email
+    'event_controller',
     'cloudinary_storage',
-    'event_controller'
+    'user',
 ]
 
 AUTH_USER_MODEL = "user.CustomUser"
@@ -171,3 +173,20 @@ CLOUDINARY_STORAGE = {
     'API_KEY': config('CLOUDINARY_API_KEY'),
     'API_SECRET': config('CLOUDINARY_API_SECRET')
 }
+
+# CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+# CELERY_RESULT_URL = config('CELERY_BROKER_URL')
+
+CELERY_BEAT_SCHEDULE = {
+    "populate_dogs": {
+        "task": "django_api_project.tasks.populate_dog",
+        "schedule": timedelta(seconds=10)
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = True
+EMAIL_HOST_PASSWORD = 'nwokporochukwuebuka@gmail.com'
+EMAIL_USE_TLS = 'einstein2@'
