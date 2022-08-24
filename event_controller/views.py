@@ -119,4 +119,3 @@ class EventAttenderView(ModelViewSet):
 
         at_serializer.save()
         return Response(at_serializer.data, status=201)
-        
